@@ -1,0 +1,6 @@
+# Run
+FROM openjdk:11
+COPY Main.java .
+RUN javac Main.java
+
+ENTRYPOINT java Main

@@ -1,0 +1,27 @@
+services:
+  database:
+    container_name: database
+    build: ./Database
+    networks:
+      - app-network
+    volumes:
+      - database-script:/var/lib/postgresql/data
+  api-rest:
+    container_name: api-rest
+    build: ./Backend_API/simple-api-main/simple-api
+    restart: "on-failure"
+    depends_on:
+      - database
+    networks:
+      - app-network
+  httpd:
+    container_name: httpd
+    build: ./Http_server
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+networks:
+  app-network:
+volumes:
+  database-script:
